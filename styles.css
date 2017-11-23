@@ -1,0 +1,29 @@
+html, body{
+  background-color: #ffffff;
+  height: 100%
+}
+
+.menu {
+	position:fixed;
+	width:250px; height:70px;
+	top:60px; right: 10px;
+	background: rgba(255,255,255,0.75);
+}
+
+.valuesDisplay {
+	position:fixed;
+  padding-left: 2px;
+	width:220px; height:80px;
+	top:10px; left: 10px;
+	background: rgba(0,0,255,0.5);
+  font-weight: bold;
+   white-space: nowrap;
+}
+
+.menu a {
+	color: black;
+}
+
+#dragPoint{
+  cursor: pointer;
+}
