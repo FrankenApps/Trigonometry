@@ -5,7 +5,7 @@ html, body{
 
 .menu {
 	position:fixed;
-	width:250px; height:70px;
+	width:250px; height:140px;
 	top:60px; right: 10px;
 	background: rgba(255,255,255,0.75);
 }

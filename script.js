@@ -1,6 +1,12 @@
 var width = 0;
 var height = 0;
 
+//globals for animation
+var interval;
+var animatedAngle = 0;
+var animationSpeed = 0.05;
+var arrayID = 3;
+
 $( document ).ready(function() {
   width = $(document).width();
   height = $(document).height();
@@ -11,6 +17,29 @@ $( document ).ready(function() {
       event.preventDefault();
       updateAngle(parseFloat($('#setAngle').val()))
     }
+  });
+
+  $('#play').on('click', function(event) {
+    animatedAngle = parseFloat(d3.select('#angleSign').text().substring(3,d3.select('#angleSign').text().length-1));
+    interval = d3.interval(animation, 1);
+  });
+
+  $('#pause').on('click', function(event) {
+    interval.stop();
+  });
+
+  $('#stop').on('click', function(event) {
+    interval.stop();
+    animatedAngle = 0;
+    updateAngle(animatedAngle);
+  });
+
+  $('#slower').on('click', function(event) {
+    animationSpeedControl(-1);
+  });
+
+  $('#faster').on('click', function(event) {
+    animationSpeedControl(1);
   });
 
   //display setup
@@ -186,8 +215,6 @@ $( document ).ready(function() {
 
 function dragstarted(d) {
   d3.select(this).classed("active", true);
-  d3.select('#sinus').style('opacity', 1);
-  d3.select('#cosinus').style('opacity', 1);
 }
 
 function dragged(d) {
@@ -218,6 +245,9 @@ function round(number, precision) {
 }
 
 function updateAngle(deg){
+  d3.select('#sinus').style('opacity', 1);
+  d3.select('#cosinus').style('opacity', 1);
+
   if(deg>360){
     alert('Value is too big. Only one rotation is allowed. Sorry!');
   } else{
@@ -309,4 +339,25 @@ if (round(deg,2) == 90 || round(deg,2) == 270) {
     $('#Ncotan').html((1/(Math.tan(phi/2))).toFixed(14));
   }
   }
+}
+
+function animation(){
+  animatedAngle += animationSpeed;
+  if(animatedAngle<360){
+    updateAngle(animatedAngle);
+  } else{
+    animatedAngle = 0;
+    updateAngle(animatedAngle);
+  }
+}
+
+function animationSpeedControl(direction){
+  var speeds = [0.01,0.05,0.1,0.5,1,5,10];
+  if(arrayID + direction > -1 && arrayID + direction < 7){
+  arrayID = arrayID + direction;
+  console.log(speeds[arrayID]);
+  animationSpeed = speeds[arrayID]
+} else{
+  console.log("Maximum (or minimum) speed is exceeded.");
+}
 }
