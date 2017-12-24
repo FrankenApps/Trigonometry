@@ -211,6 +211,8 @@ $( document ).ready(function() {
     .attr('id', 'angleSign')
     .style("font-size", "18px")
     .text("\u03C6 = 0°");
+
+    updateAngle(45);
 });
 
 function dragstarted(d) {
